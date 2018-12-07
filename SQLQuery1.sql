@@ -1,0 +1,64 @@
+use BookShop
+CREATE TABLE Written (
+Written_ID INT NOT NULL,
+Price INT NOT NULL,
+NumberOfPages INT,
+Released_Date DATE,
+Book_Flag INT,
+Magazine_Flag INT,
+PRIMARY KEY (Written_ID),
+Section_ID INT FOREIGN KEY REFERENCES Section (Section_ID),
+Publisher_ID INT FOREIGN KEY REFERENCES Publisher (Publisher_ID)
+);
+
+CREATE TABLE Author (
+Author_ID INT NOT NULL,
+Author_Name VARCHAR NOT NULL,
+PRIMARY KEY (Author_ID)
+)
+
+CREATE TABLE Member
+(
+	SSN INT NOT NULL,
+	First_Name VARCHAR(50) NOT NULL,
+	Last_Name VARCHAR(50),
+	Phone VARCHAR(20),
+	Age INT,
+	Adr VARCHAR(120),
+	PRIMARY KEY (SSN)
+);
+
+
+CREATE TABLE Borrows (
+SSN INT FOREIGN KEY REFERENCES Member (SSN),
+Item_ID INT,
+
+CONSTRAINT Borrows_fk FOREIGN KEY (Item_ID) REFERENCES  CD (Item_ID),
+CONSTRAINT Boroows_fk FOREIGN KEY (Item_ID) REFERENCES  Written (Item_ID)
+);
+
+ALTER TABLE Borrows
+  ADD Borrow_Date DATE,
+  Return_Date DATE;
+
+  ALTER TABLE Borrows
+  ALTER COLUMN Return_Date date NOT NULL;
+
+  ALTER TABLE Borrows
+  ALTER COLUMN SSN INT NOT NULL;
+    ALTER TABLE Borrows
+  ALTER COLUMN Item_ID INT NOT NULL;
+
+  ALTER TABLE Borrows
+  ADD Constraint Borrows_Pk PRIMARY KEY (SSN,Item_ID);
+  
+  
+
+CREATE TABLE Written_By(
+Item_ID INT NOT NULL,
+Author_ID INT NOT NULL
+CONSTRAINT Written_By_Fk1 FOREIGN KEY (Item_ID) REFERENCES Written (Item_ID),
+CONSTRAINT Written_By_Fk2 FOREIGN KEY (Item_ID) REFERENCES CD (Item_ID),
+CONSTRAINT Written_By_Fk3 FOREIGN KEY (Author_ID) REFERENCES Author (Author_ID),
+CONSTRAINT Written_By_Pk PRIMARY KEY (Item_ID, Author_ID)
+);
