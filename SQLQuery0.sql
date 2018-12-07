@@ -1,7 +1,7 @@
 use BookShop
 CREATE TABLE Section (
 Section_ID INT NOT NULL,
-Section_Name VARCHAR(50) NOT NULL
+SName VARCHAR(50) NOT NULL
 PRIMARY KEY (Section_ID)
 );
 
